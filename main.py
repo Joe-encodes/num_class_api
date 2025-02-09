@@ -1,6 +1,7 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel  # For better input validation
 
 # Initialize the FastAPI app
@@ -63,24 +64,23 @@ def get_fun_fact(n: int) -> str:
         return "No fun fact available."
 
 # Define the endpoint to classify a number
+
+
 @app.get("/api/classify-number")
 def classify_number(
     number: str = Query(..., description="A valid integer, negative, or floating-point number")
 ):
     try:
-        # Attempt to convert the input to an integer
         n = int(number)
     except ValueError:
-        # If conversion fails, return a 400 error with the invalid input
-        raise HTTPException(
+        return JSONResponse(
             status_code=400,
-            detail={
+            content={
                 "number": number,
-                "error": True,
-                "message": "Invalid input. Please provide a valid integer."
+                "error": True
             }
         )
-
+    
     # Calculate number properties
     prime = is_prime(n)
     perfect = is_perfect(n)
