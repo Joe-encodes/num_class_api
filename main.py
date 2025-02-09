@@ -35,10 +35,9 @@ def is_perfect(n: int) -> bool:
     divisors_sum = sum(i for i in range(1, n) if n % i == 0)
     return divisors_sum == n
 
-# Updated function to check if a number is an Armstrong number
+# Function to check if a number is an Armstrong number
 def is_armstrong(n: int) -> bool:
-    # Armstrong numbers are typically defined for non-negative integers.
-    if n < 0:
+    if n < 0:  # Armstrong numbers are defined only for non-negative integers
         return False
     digits = str(n)
     power = len(digits)
@@ -48,9 +47,9 @@ def is_armstrong(n: int) -> bool:
 def find_parity(n: int):
     return "odd" if n % 2 != 0 else "even"
 
-# Function to calculate the sum of digits of a number
+# Updated function: calculate the sum of digits using the absolute value
 def digit_sum(n: int) -> int:
-    return sum(int(digit) for digit in str(n))
+    return sum(int(digit) for digit in str(abs(n)))
 
 # Function to fetch a fun fact about a number using the Numbers API
 def get_fun_fact(n: int) -> str:
